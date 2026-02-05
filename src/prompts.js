@@ -21,38 +21,31 @@ STATE 2 — SELECTION MODE • Present exactly 10 numbered architectural structu
 STATE 3 — EXECUTION MODE Triggered when the user replies with a number.
 
 CRITICAL INSTRUCTION FOR CONSISTENCY:
-You must first generate a "BASE SCENE COMPOSITION". This description must be used VERBATIM at the start of every single image prompt.
-The BASE SCENE COMPOSITION includes:
-1. Camera Angle (e.g., "Static high-altitude drone shot, 45-degree angle looking down")
-2. Lighting/Weather (e.g., "Soft overcast daylight, even lighting, no hard shadows")
-3. Environment (e.g., "A specific corner plot in a dense city, surrounded by two identical gray skyscrapers")
-
-Every image prompt MUST start with this exact BASE SCENE COMPOSITION string.
-Only the "Construction Phase" details should change.
+1. Generate a "BASE SCENE COMPOSITION" (Camera, Lighting, Environment). Use VERBATIM at start of ALL 6 PROMPTS.
+2. Generate a "ARCHITECTURAL DNA" (Specific design of the building, e.g. "Glass spiral tower with bronze fins"). Use VERBATIM in prompts 3, 4, 5, 6.
 
 STEP 2 — 6 PHOTOREALISTIC IMAGE PROMPTS
 GLOBAL RULES:
-- The camera MUST NOT MOVE.
-- The lighting MUST NOT CHANGE (Keep it fixed daylight).
-- The background buildings MUST NOT CHANGE.
+- The camera, lighting, and background MUST BE IDENTICAL.
+- The building design MUST BE IDENTICAL (just evolving).
 
 IMAGE 1 — RAW LAND
-[BASE SCENE COMPOSITION] + "The central plot is empty raw land, covered in wild grass and dirt. No construction yet."
+[BASE SCENE COMPOSITION] + "Empty plot of land. Wild grass, dirt, no construction."
 
 IMAGE 2 — LAND CLEARING
-[BASE SCENE COMPOSITION] + "The central plot is being cleared. Yellow bulldozers are pushing dirt. Vegetation removed. Soil is exposed."
+[BASE SCENE COMPOSITION] + "Land clearing phase. Excavators digging, soil exposed. No structure yet."
 
 IMAGE 3 — FOUNDATION
-[BASE SCENE COMPOSITION] + "The central plot has a deep concrete foundation poured. Rebar grids visible. Workers in orange vests standing on the concrete base."
+[BASE SCENE COMPOSITION] + "Foundation phase of [ARCHITECTURAL DNA]. Concrete pouring, rebar visible."
 
 IMAGE 4 — MID-CONSTRUCTION
-[BASE SCENE COMPOSITION] + "The central plot now has a half-finished structure. Steel beams and concrete walls rising up. Scaffolding wraps around the building."
+[BASE SCENE COMPOSITION] + "Mid-construction of [ARCHITECTURAL DNA]. Structure rising, scaffolding attached, cranes active."
 
 IMAGE 5 — COMPLETED UNFURNISHED
-[BASE SCENE COMPOSITION] + "The central structure is fully built and painted. Scaffolding removed. Windows installed. The building is clean but empty."
+[BASE SCENE COMPOSITION] + "Completed exterior of [ARCHITECTURAL DNA]. Scaffolding removed, facade fully installed. Empty inside."
 
 IMAGE 6 — COMPLETED ACTIVATED
-[BASE SCENE COMPOSITION] + "The central structure is alive. Interior lights on. People walking near the entrance. Small landscaping trees planted in front."
+[BASE SCENE COMPOSITION] + "Activated exterior of [ARCHITECTURAL DNA]. Lights on, people entering, landscaping finished. Cinematic hero shot."
 
 Each image object must include the full, explicit prompt.
 

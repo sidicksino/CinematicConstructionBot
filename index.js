@@ -75,21 +75,30 @@ bot.on(message('text'), async (ctx) => {
             const sequenceSeed = Math.floor(Math.random() * 1000000);
             console.log(`Starting sequence with Seed: ${sequenceSeed}`);
 
-            for (let i = 0; i < images.length; i++) {
-                const imgData = images[i];
-                const caption = `IMAGE ${i + 1}: ${imgData.step}\n\nPROMPT: ${imgData.prompt.substring(0, 200)}...`;
+            // Parallel Execution Strategy: Batches of 3 to avoid rate limits but DOUBLE the speed
+            const batchSize = 3;
+            for (let i = 0; i < images.length; i += batchSize) {
+                const batch = images.slice(i, i + batchSize);
                 
-                await ctx.reply(`Generating Image ${i + 1}/6: ${imgData.step}...`);
-                
-                try {
-                    // Add "photorealistic, cinematic, 8k, drone view" AND consistent camera angle terms
-                    const enhancedPrompt = `Same fixed camera angle, same shot, same altitude. ${imgData.prompt}, photorealistic, 8k, cinematic, drone view, ${selectedStructure}`;
-                    const imageBuffer = await generateImage(enhancedPrompt, i + 1, sequenceSeed);
-                    await ctx.replyWithPhoto({ source: imageBuffer }, { caption: caption });
-                } catch (imgError) {
-                    console.error(`Failed to generate image ${i+1}`, imgError);
-                    await ctx.reply(`⚠️ [Server Busy] Could not generate Image ${i+1}. The image server is overloaded (504). \n\nPrompt was: "${imgData.prompt}"`);
-                }
+                await Promise.all(batch.map(async (imgData, index) => {
+                    const globalIndex = i + index;
+                    const caption = `IMAGE ${globalIndex + 1}: ${imgData.step}\n\nPROMPT: ${imgData.prompt.substring(0, 200)}...`;
+                    
+                    try {
+                        // Notify start (optional, maybe skip to reduce API spam? No, user likes status)
+                        // ctx.reply is async, fire-and-forget here to save time? Better await to keep order? 
+                        // Let's rely on the final photos sending.
+                        
+                        // Add consistency keywords
+                        const enhancedPrompt = `Same fixed camera angle, same shot, same altitude. ${imgData.prompt}, photorealistic, 8k, cinematic, drone view, ${selectedStructure}`;
+                        
+                        const imageBuffer = await generateImage(enhancedPrompt, globalIndex + 1, sequenceSeed);
+                        await ctx.replyWithPhoto({ source: imageBuffer }, { caption: caption });
+                    } catch (imgError) {
+                        console.error(`Failed to generate image ${globalIndex+1}`, imgError);
+                        await ctx.reply(`⚠️ [Server Busy] Could not generate Image ${globalIndex+1}. (504 Error)`);
+                    }
+                }));
             }
 
             // 3. Send Video Prompts

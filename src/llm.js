@@ -22,7 +22,8 @@ DO NOT list the options.
 DO NOT ask for a selection.
 IMMEDIATELY generate the JSON output for Option ${structureNumber}.
 STRICTLY return ONLY the JSON object. No preamble, no explanation.
-CRITICAL: Start EVERY image prompt with "Same fixed camera angle, same shot, consistent view."
+CRITICAL: Start EVERY image prompt with the "BASE SCENE COMPOSITION".
+CRITICAL: Use the "ARCHITECTURAL DNA" description for the building in steps 3-6.
 
 Required JSON Structure:
 {
