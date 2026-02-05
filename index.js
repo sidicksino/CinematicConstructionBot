@@ -84,7 +84,7 @@ bot.on(message('text'), async (ctx) => {
                     await ctx.replyWithPhoto({ source: imageBuffer }, { caption: caption });
                 } catch (imgError) {
                     console.error(`Failed to generate image ${i+1}`, imgError);
-                    await ctx.reply(`❌ Failed to generate Image ${i+1}. Prompt used:\n${imgData.prompt}`);
+                    await ctx.reply(`⚠️ [Server Busy] Could not generate Image ${i+1}. The image server is overloaded (504). \n\nPrompt was: "${imgData.prompt}"`);
                 }
             }
 

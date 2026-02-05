@@ -15,13 +15,15 @@ async function generateConstructionPrompts(structureNumber) {
     
     const inputPrompt = `${MASTER_PROMPT}
 
-USER: start
-SYSTEM: [Enters Selection Mode and lists 10 options]
-USER: ${structureNumber}
-SYSTEM: [Enters Execution Mode and generates the output]
+*** IMMEDIATE INSTRUCTION ***
+The user has ALREADY selected Option ${structureNumber}.
+You are now in EXECUTION MODE.
+DO NOT list the options.
+DO NOT ask for a selection.
+IMMEDIATELY generate the JSON output for Option ${structureNumber}.
+STRICTLY return ONLY the JSON object. No preamble, no explanation.
 
-IMPORTANT: Provide the response in JSON format so I can parse it easily. 
-The JSON should have this structure:
+Required JSON Structure:
 {
   "context_confirmation": "string",
   "images": [
@@ -52,8 +54,14 @@ The JSON should have this structure:
             const response = await result.response;
             const text = response.text();
             
-            // Clean up markdown code blocks if present
-            const jsonStr = text.replace(/```json/g, '').replace(/```/g, '').trim();
+            // Robust JSON extraction
+            const jsonMatch = text.match(/\{[\s\S]*\}/);
+            if (!jsonMatch) {
+                console.error("No JSON found in response:", text);
+                throw new Error("No JSON found in response");
+            }
+            
+            const jsonStr = jsonMatch[0];
             return JSON.parse(jsonStr);
         } catch (error) {
             // Enhanced 429 check
