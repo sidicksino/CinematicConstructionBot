@@ -24,6 +24,7 @@ IMMEDIATELY generate the JSON output for Option ${structureNumber}.
 STRICTLY return ONLY the JSON object. No preamble, no explanation.
 CRITICAL: Start EVERY image prompt with the "BASE SCENE COMPOSITION".
 CRITICAL: Use the "ARCHITECTURAL DNA" description for the building in steps 3-6.
+CRITICAL: Append " --no text, no watermark, no logo" to the end of every prompt.
 
 Required JSON Structure:
 {

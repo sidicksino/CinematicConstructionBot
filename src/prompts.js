@@ -28,24 +28,25 @@ STEP 2 — 6 PHOTOREALISTIC IMAGE PROMPTS
 GLOBAL RULES:
 - The camera, lighting, and background MUST BE IDENTICAL.
 - The building design MUST BE IDENTICAL (just evolving).
+- NO TEXT, NO WATERMARKS, NO LOGOS, NO TIMESTAMPS.
 
 IMAGE 1 — RAW LAND
-[BASE SCENE COMPOSITION] + "Empty plot of land. Wild grass, dirt, no construction."
+[BASE SCENE COMPOSITION] + "Empty plot of land. Wild grass, dirt, no construction." + " --no text, no watermark, no logo"
 
 IMAGE 2 — LAND CLEARING
-[BASE SCENE COMPOSITION] + "Land clearing phase. Excavators digging, soil exposed. No structure yet."
+[BASE SCENE COMPOSITION] + "Land clearing phase. Excavators digging, soil exposed. No structure yet." + " --no text, no watermark, no logo"
 
 IMAGE 3 — FOUNDATION
-[BASE SCENE COMPOSITION] + "Foundation phase of [ARCHITECTURAL DNA]. Concrete pouring, rebar visible."
+[BASE SCENE COMPOSITION] + "Foundation phase of [ARCHITECTURAL DNA]. Concrete pouring, rebar visible." + " --no text, no watermark, no logo"
 
 IMAGE 4 — MID-CONSTRUCTION
-[BASE SCENE COMPOSITION] + "Mid-construction of [ARCHITECTURAL DNA]. Structure rising, scaffolding attached, cranes active."
+[BASE SCENE COMPOSITION] + "Mid-construction of [ARCHITECTURAL DNA]. Structure rising, scaffolding attached, cranes active." + " --no text, no watermark, no logo"
 
 IMAGE 5 — COMPLETED UNFURNISHED
-[BASE SCENE COMPOSITION] + "Completed exterior of [ARCHITECTURAL DNA]. Scaffolding removed, facade fully installed. Empty inside."
+[BASE SCENE COMPOSITION] + "Completed exterior of [ARCHITECTURAL DNA]. Scaffolding removed, facade fully installed. Empty inside." + " --no text, no watermark, no logo"
 
 IMAGE 6 — COMPLETED ACTIVATED
-[BASE SCENE COMPOSITION] + "Activated exterior of [ARCHITECTURAL DNA]. Lights on, people entering, landscaping finished. Cinematic hero shot."
+[BASE SCENE COMPOSITION] + "Activated exterior of [ARCHITECTURAL DNA]. Lights on, people entering, landscaping finished. Cinematic hero shot." + " --no text, no watermark, no logo"
 
 Each image object must include the full, explicit prompt.
 

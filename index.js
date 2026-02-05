@@ -89,8 +89,9 @@ bot.on(message('text'), async (ctx) => {
                         // ctx.reply is async, fire-and-forget here to save time? Better await to keep order? 
                         // Let's rely on the final photos sending.
                         
-                        // Add consistency keywords
-                        const enhancedPrompt = `Same fixed camera angle, same shot, same altitude. ${imgData.prompt}, photorealistic, 8k, cinematic, drone view, ${selectedStructure}`;
+                        // Add consistency keywords AND strict negative prompting
+                        // Ensuring "No text" comes LAST has the strongest effect
+                        const enhancedPrompt = `Same fixed camera angle, same shot, same altitude. ${imgData.prompt}, photorealistic, 8k, cinematic, drone view, ${selectedStructure}. No text, no watermark, no logo, no timestamp, no drone UI, no OSD.`;
                         
                         const imageBuffer = await generateImage(enhancedPrompt, globalIndex + 1, sequenceSeed);
                         await ctx.replyWithPhoto({ source: imageBuffer }, { caption: caption });
