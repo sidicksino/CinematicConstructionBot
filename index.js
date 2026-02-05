@@ -120,8 +120,12 @@ bot.on(message('text'), async (ctx) => {
     }
 });
 
+console.log('Attempting to connect to Telegram...');
 bot.launch().then(() => {
     console.log('Cinematic Construction Bot is running...');
+    console.log('Send /start to your bot in Telegram to begin.');
+}).catch((err) => {
+    console.error('Failed to launch bot:', err);
 });
 
 // Enable graceful stop

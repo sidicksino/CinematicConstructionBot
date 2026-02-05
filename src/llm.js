@@ -3,7 +3,7 @@ const { GEMINI_API_KEY } = require("./config");
 const { MASTER_PROMPT } = require("./prompts");
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 async function generateConstructionPrompts(structureNumber) {
     // 1. Initialize the chat with the Master Prompt and "start"
@@ -52,7 +52,7 @@ The JSON should have this structure:
         return JSON.parse(jsonStr);
     } catch (error) {
         console.error("Error generating prompts with Gemini:", error);
-        console.log("Raw Response:", text); // Debug log
+        // console.log("Raw Response:", text); // 'text' is not defined here
         throw error;
     }
 }
