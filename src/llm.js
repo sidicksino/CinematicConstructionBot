@@ -3,7 +3,7 @@ const { GEMINI_API_KEY } = require("./config");
 const { MASTER_PROMPT } = require("./prompts");
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
 async function generateConstructionPrompts(structureNumber) {
     // 1. Initialize the chat with the Master Prompt and "start"
@@ -43,10 +43,10 @@ The JSON should have this structure:
 `;
 
     // Retry logic for 429 errors
-    const MAX_RETRIES = 3;
+    const MAX_RETRIES = 1; // Reduced to avoid timeouts
     let retryCount = 0;
     
-    while (retryCount < MAX_RETRIES) {
+    while (retryCount <= MAX_RETRIES) {
         try {
             const result = await model.generateContent(inputPrompt);
             const response = await result.response;
@@ -62,10 +62,10 @@ The JSON should have this structure:
                                 (error.message && error.message.includes('429')) || 
                                 (error.message && error.message.includes('Quota exceeded'));
 
-            if (isRateLimit) {
+            if (isRateLimit && retryCount < MAX_RETRIES) {
                 retryCount++;
-                console.log(`Rate limit hit (Status: ${error.status}). Retrying in 60 seconds... (Attempt ${retryCount}/${MAX_RETRIES})`);
-                await new Promise(resolve => setTimeout(resolve, 60000)); // Wait 60 seconds
+                console.log(`Rate limit hit (Status: ${error.status}). Retrying in 65 seconds... (Attempt ${retryCount}/${MAX_RETRIES})`);
+                await new Promise(resolve => setTimeout(resolve, 65000)); // Wait 65 seconds
                 continue;
             }
             console.error("Error generating prompts with Gemini:", error);
