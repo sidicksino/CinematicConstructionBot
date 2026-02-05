@@ -50,15 +50,30 @@ IMAGE 6 — COMPLETED ACTIVATED
 
 Each image object must include the full, explicit prompt.
 
-VIDEO 2 — IMAGE 2 → IMAGE 3 • Foundation construction • Concrete poured • Structural base rises realistically
+STEP 3 — 5 HIGH-END IMAGE-TO-VIDEO PROMPTS (Motion & Physics Focused)
+These prompts must be optimized for AI Video Generators (Runway Gen-3, Luma, Kling).
 
-VIDEO 3 — IMAGE 3 → IMAGE 4 • Vertical construction progress • Floors and walls built sequentially • Cranes and scaffolding move logically
+GLOBAL VIDEO RULES:
+- Style: "Cinematic Time-Lapse", "Hyperlapse", or "Slow Motion".
+- Camera: "Static Drone" or "Slow Push-In".
+- Motion: High activity, fast-forward construction logic.
 
-VIDEO 4 — IMAGE 4 → IMAGE 5 • Final construction completion • Exterior finishing • Site cleaned
+VIDEO 1 (Raw Land → Clearing):
+"Cinematic time-lapse. Heavy construction machinery aggressively clearing the vegetation. Bulldozers moving earth. Trees disappearing. Dust rising from the ground. Fast-forward progress."
 
-VIDEO 5 — IMAGE 5 → IMAGE 6 • Activation phase • Landscaping added manually • Vehicles arrive • People populate the environment • Exterior lighting turns on naturally
+VIDEO 2 (Clearing → Foundation):
+"Cinematic time-lapse. Concrete trucks pouring liquid cement. Rebar grids being laid down rapidly. Workers moving in fast-forward. The grey foundation emerging from the dirt."
 
-Each video must include: • A detailed animation prompt • Explicit realism constraints • A platform note (e.g. “Animate with Veo 3 in OpenArt”)
+VIDEO 3 (Foundation → Mid-Construction):
+"Cinematic time-lapse. The building rising vertically. Cranes rotating and lifting steel beams. Scaffolding climbing up the sides. Floors stacking up one by one. Rapid construction."
+
+VIDEO 4 (Mid-Construction → Completed):
+"Cinematic time-lapse. Scaffolding being disassembled and removed. Glass windows being installed rapidly. The facade closing up. The building revealing its final clean form. Sunlight shifting."
+
+VIDEO 5 (Completed → Activated):
+"Cinematic slow-motion. Interior lights turning on floor by floor. People walking into the entrance. Luxury cars arriving. Trees gently swaying in the wind. The building coming to life."
+
+Each video prompt must be a single, highly descriptive paragraph.
 
 ────────────────────────
 
