@@ -3,7 +3,7 @@ const { GEMINI_API_KEY } = require("./config");
 const { MASTER_PROMPT } = require("./prompts");
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 async function generateConstructionPrompts(structureNumber) {
     // 1. Initialize the chat with the Master Prompt and "start"
@@ -42,19 +42,38 @@ The JSON should have this structure:
 }
 `;
 
-    try {
-        const result = await model.generateContent(inputPrompt);
-        const response = await result.response;
-        const text = response.text();
-        
-        // Clean up markdown code blocks if present
-        const jsonStr = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        return JSON.parse(jsonStr);
-    } catch (error) {
-        console.error("Error generating prompts with Gemini:", error);
-        // console.log("Raw Response:", text); // 'text' is not defined here
-        throw error;
+    // Retry logic for 429 errors
+    const MAX_RETRIES = 3;
+    let retryCount = 0;
+    
+    while (retryCount < MAX_RETRIES) {
+        try {
+            const result = await model.generateContent(inputPrompt);
+            const response = await result.response;
+            const text = response.text();
+            
+            // Clean up markdown code blocks if present
+            const jsonStr = text.replace(/```json/g, '').replace(/```/g, '').trim();
+            return JSON.parse(jsonStr);
+        } catch (error) {
+            // Enhanced 429 check
+            const isRateLimit = (error.status === 429) || 
+                                (error.status === '429') || 
+                                (error.message && error.message.includes('429')) || 
+                                (error.message && error.message.includes('Quota exceeded'));
+
+            if (isRateLimit) {
+                retryCount++;
+                console.log(`Rate limit hit (Status: ${error.status}). Retrying in 60 seconds... (Attempt ${retryCount}/${MAX_RETRIES})`);
+                await new Promise(resolve => setTimeout(resolve, 60000)); // Wait 60 seconds
+                continue;
+            }
+            console.error("Error generating prompts with Gemini:", error);
+            // console.log("Raw Response:", text); // 'text' is not defined here
+            throw error;
+        }
     }
+    throw new Error("Max retries exceeded for Gemini API call.");
 }
 
 module.exports = { generateConstructionPrompts };
