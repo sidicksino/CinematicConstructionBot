@@ -71,6 +71,10 @@ bot.on(message('text'), async (ctx) => {
             // 2. Generate and Send Images
             const images = constructionData.images || [];
             
+            // Fix a random seed for the entire sequence to ensure consistent camera angle
+            const sequenceSeed = Math.floor(Math.random() * 1000000);
+            console.log(`Starting sequence with Seed: ${sequenceSeed}`);
+
             for (let i = 0; i < images.length; i++) {
                 const imgData = images[i];
                 const caption = `IMAGE ${i + 1}: ${imgData.step}\n\nPROMPT: ${imgData.prompt.substring(0, 200)}...`;
@@ -78,9 +82,9 @@ bot.on(message('text'), async (ctx) => {
                 await ctx.reply(`Generating Image ${i + 1}/6: ${imgData.step}...`);
                 
                 try {
-                    // Add "photorealistic, cinematic, 8k, drone view" to ensure quality if prompt is missing it
-                    const enhancedPrompt = `${imgData.prompt}, photorealistic, 8k, cinematic, drone view, ${selectedStructure}`;
-                    const imageBuffer = await generateImage(enhancedPrompt, i + 1);
+                    // Add "photorealistic, cinematic, 8k, drone view" AND consistent camera angle terms
+                    const enhancedPrompt = `Same fixed camera angle, same shot, same altitude. ${imgData.prompt}, photorealistic, 8k, cinematic, drone view, ${selectedStructure}`;
+                    const imageBuffer = await generateImage(enhancedPrompt, i + 1, sequenceSeed);
                     await ctx.replyWithPhoto({ source: imageBuffer }, { caption: caption });
                 } catch (imgError) {
                     console.error(`Failed to generate image ${i+1}`, imgError);

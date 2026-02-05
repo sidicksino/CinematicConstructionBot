@@ -22,6 +22,7 @@ DO NOT list the options.
 DO NOT ask for a selection.
 IMMEDIATELY generate the JSON output for Option ${structureNumber}.
 STRICTLY return ONLY the JSON object. No preamble, no explanation.
+CRITICAL: Start EVERY image prompt with "Same fixed camera angle, same shot, consistent view."
 
 Required JSON Structure:
 {

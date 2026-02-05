@@ -8,23 +8,26 @@ const HF_API_URL = "https://router.huggingface.co/hf-inference/models/black-fore
 // 2. FALLBACK: Pollinations.ai (Free/Unlimited)
 const POLLINATIONS_URL = "https://image.pollinations.ai/prompt";
 
-async function generateImage(prompt, stepIndex) {
-    console.log(`Generating image for step ${stepIndex}...`);
+async function generateImage(prompt, stepIndex, seed) {
+    console.log(`Generating image for step ${stepIndex} (Seed: ${seed})...`);
 
     // --- ATTEMPT 1: Hugging Face (Flux Schnell) ---
     try {
         console.log(`[Primary] Generating via HF Flux.1-Schnell...`);
         const response = await axios.post(
             HF_API_URL,
-            { inputs: prompt },
+            { 
+                inputs: prompt,
+                parameters: { seed: seed } // Pass consistent seed
+            },
             {
                 headers: {
                     Authorization: `Bearer ${HF_TOKEN}`,
                     "Content-Type": "application/json",
                     "Accept": "image/png"
                 },
-                responseType: "arraybuffer", // Important for binary image data
-                timeout: 90000 // 90s timeout as per user snippet
+                responseType: "arraybuffer",
+                timeout: 90000 
             }
         );
 
@@ -40,8 +43,8 @@ async function generateImage(prompt, stepIndex) {
     try {
         console.log(`[Fallback] Generating via Pollinations.ai (Turbo)...`);
         const encodedPrompt = encodeURIComponent(prompt);
-        // Using 'turbo' model for speed in fallback scenario
-        const url = `${POLLINATIONS_URL}/${encodedPrompt}?width=1280&height=720&model=turbo&nologo=true`;
+        // Pass seed to Pollinations
+        const url = `${POLLINATIONS_URL}/${encodedPrompt}?width=1280&height=720&model=turbo&nologo=true&seed=${seed}`;
         
         const response = await axios.get(url, {
             responseType: "arraybuffer",

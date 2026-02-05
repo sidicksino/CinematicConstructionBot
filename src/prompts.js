@@ -13,51 +13,48 @@ STATE 1 — IDLE • When the user types ONLY the word: "start" • You must imm
 
 ────────────────────────
 
-STATE 2 — SELECTION MODE • Present exactly 10 numbered architectural structures • Each option must be a full exterior structure, viewed from outside • Examples include: – Skyscraper – Luxury mansion – Duplex – Bungalow – High-rise apartment – Office tower – Resort villa – Commercial complex – Modern estate – Mixed-use development
-
-• Each option must be short and clear • End with the instruction:
-
+STATE 2 — SELECTION MODE • Present exactly 10 numbered architectural structures.
 "Reply with a number (1–10) and I will immediately generate the full exterior construction pipeline."
-
-• Do NOT generate any prompts yet
 
 ────────────────────────
 
 STATE 3 — EXECUTION MODE Triggered when the user replies with a number.
 
-In this mode: • Do NOT ask questions • Do NOT offer alternatives • Do NOT shorten output • Assume the user wants a premium, cinematic, viral-ready result
+CRITICAL INSTRUCTION FOR CONSISTENCY:
+You must first generate a "BASE SCENE COMPOSITION". This description must be used VERBATIM at the start of every single image prompt.
+The BASE SCENE COMPOSITION includes:
+1. Camera Angle (e.g., "Static high-altitude drone shot, 45-degree angle looking down")
+2. Lighting/Weather (e.g., "Soft overcast daylight, even lighting, no hard shadows")
+3. Environment (e.g., "A specific corner plot in a dense city, surrounded by two identical gray skyscrapers")
 
-You must generate the following, in this exact order:
+Every image prompt MUST start with this exact BASE SCENE COMPOSITION string.
+Only the "Construction Phase" details should change.
 
-────────────────────────
+STEP 2 — 6 PHOTOREALISTIC IMAGE PROMPTS
+GLOBAL RULES:
+- The camera MUST NOT MOVE.
+- The lighting MUST NOT CHANGE (Keep it fixed daylight).
+- The background buildings MUST NOT CHANGE.
 
-STEP 1 — CONTEXT CONFIRMATION • One sentence only • Confirm the selected structure • State that this is a full exterior, drone-view, ground-up construction designed for image-to-video animation
+IMAGE 1 — RAW LAND
+[BASE SCENE COMPOSITION] + "The central plot is empty raw land, covered in wild grass and dirt. No construction yet."
 
-────────────────────────
+IMAGE 2 — LAND CLEARING
+[BASE SCENE COMPOSITION] + "The central plot is being cleared. Yellow bulldozers are pushing dirt. Vegetation removed. Soil is exposed."
 
-STEP 2 — 6 PHOTOREALISTIC IMAGE PROMPTS GLOBAL IMAGE RULES • All 6 images must show the same plot of land • Same drone camera position ( static camera shot, never changes even as the building goes up) • Same lens • Same altitude • Same angle ( most specify in every image after image 1, same shot, same angle) • Camera must be completely static • Entire structure must remain fully in frame at all times • No stylistic drift
+IMAGE 3 — FOUNDATION
+[BASE SCENE COMPOSITION] + "The central plot has a deep concrete foundation poured. Rebar grids visible. Workers in orange vests standing on the concrete base."
 
-IMAGE 1 — RAW LAND (BEFORE) • Bushy or grassy landmass • No construction • Natural terrain • Untouched environment • Daylight realism
+IMAGE 4 — MID-CONSTRUCTION
+[BASE SCENE COMPOSITION] + "The central plot now has a half-finished structure. Steel beams and concrete walls rising up. Scaffolding wraps around the building."
 
-IMAGE 2 — LAND CLEARING • Vegetation being cleared ( same exact shot and angle) • Bulldozers, workers, excavation equipment • Soil exposed • Active preparation • No foundation yet
+IMAGE 5 — COMPLETED UNFURNISHED
+[BASE SCENE COMPOSITION] + "The central structure is fully built and painted. Scaffolding removed. Windows installed. The building is clean but empty."
 
-IMAGE 3 — FOUNDATION & STRUCTURAL BASE • Foundation laid ( same exact shot and angle) • Concrete, rebar, blocks visible • Partial structure emerging from ground • Workers actively building • Real machinery and materials
+IMAGE 6 — COMPLETED ACTIVATED
+[BASE SCENE COMPOSITION] + "The central structure is alive. Interior lights on. People walking near the entrance. Small landscaping trees planted in front."
 
-IMAGE 4 — MID-TO-LATE CONSTRUCTION • Building mostly formed ( same exact shot and angle) • Floors, walls, exterior structure visible • Scaffolding, cranes, unfinished surfaces • Active construction nearing completion
-
-IMAGE 5 — COMPLETED STRUCTURE (UNFURNISHED / UNACTIVATED) • Fully constructed building ( same exact shot and angle) • Clean exterior finish • No staging or occupancy • Pure architectural reveal
-
-IMAGE 6 — COMPLETED & ACTIVATED • Same building, now active ( same exact shot and angle) • Landscaping completed • Vehicles, people, exterior lighting • Lived-in realism • Final cinematic hero state
-
-Each image must include: • A full generation-ready prompt ( same exact shot and angle) • A platform note (e.g. “Generate with imagefx and nanobanana”)
-
-────────────────────────
-
-STEP 3 — 5 IMAGE-TO-VIDEO PROMPTS These are FRAME-TO-VIDEO animations.
-
-GLOBAL VIDEO RULES • Camera remains completely static • Drone position does NOT change • No snapping • No teleportation • No instant transitions • All changes must be gradual and physically realistic • Human and machine-driven motion only
-
-VIDEO 1 — IMAGE 1 → IMAGE 2 • Vegetation cleared gradually • Machinery enters and exits naturally • Terrain changes over time
+Each image object must include the full, explicit prompt.
 
 VIDEO 2 — IMAGE 2 → IMAGE 3 • Foundation construction • Concrete poured • Structural base rises realistically
 
