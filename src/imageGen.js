@@ -18,7 +18,11 @@ async function generateImage(prompt, stepIndex, seed) {
             HF_API_URL,
             { 
                 inputs: prompt,
-                parameters: { seed: seed } // Pass consistent seed
+                parameters: { 
+                    seed: seed,
+                    width: 720,  // 9:16 Aspect Ratio
+                    height: 1280
+                } 
             },
             {
                 headers: {
@@ -43,8 +47,8 @@ async function generateImage(prompt, stepIndex, seed) {
     try {
         console.log(`[Fallback] Generating via Pollinations.ai (Turbo)...`);
         const encodedPrompt = encodeURIComponent(prompt);
-        // Pass seed to Pollinations
-        const url = `${POLLINATIONS_URL}/${encodedPrompt}?width=1280&height=720&model=turbo&nologo=true&seed=${seed}`;
+        // Pass seed & 9:16 dimensions to Pollinations
+        const url = `${POLLINATIONS_URL}/${encodedPrompt}?width=720&height=1280&model=turbo&nologo=true&seed=${seed}`;
         
         const response = await axios.get(url, {
             responseType: "arraybuffer",
